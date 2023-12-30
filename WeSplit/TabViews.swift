@@ -11,7 +11,9 @@ struct TabViews: View {
     var body: some View {
         TabView {
             ContentView()
-                .tabItem {Label("Menu", systemImage: "list.dash")}
+                .tabItem {Label("WeSplit", systemImage: "square.split.2x1.fill")}
+            ConverterView()
+                .tabItem {Label("Converter", systemImage: "sun.max.fill")}
         }
     }
 }
