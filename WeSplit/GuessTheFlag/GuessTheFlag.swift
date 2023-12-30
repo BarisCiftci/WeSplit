@@ -12,48 +12,60 @@ struct GuessTheFlag: View {
     @State private var correctAnswer = Int.random(in: 0...2)
     
     @State private var showScore = false
-    @State private var scoretitle = ""
+    @State private var scoreTitle = ""
+    @State private var score = 0
+    
     
     var body: some View {
         ZStack {
             
-            Color.blue
+            LinearGradient(colors: [.blue, .black], startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea()
             
             VStack(spacing: 30) {
                 VStack {
+                    Text("Score: \(score)")
+                        .foregroundStyle(.white)
+                        .bold()
+                    
                     Text("Tap the flag of")
+                        .font(.subheadline)
                         .foregroundStyle(.white)
                     
                     Text(countries[correctAnswer])
                         .foregroundStyle(.white)
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
                 }
                 
                 ForEach(0..<3) { number in
-                    Button(
-                        action: {
+                    Button(action: {
                             flagTapped(number)
-                        },
-                        
-                        label: {
+                        },label: {
                         Image(countries[number])
+                                .cornerRadius(12)
+                                .padding(4)
+                                .background(.white)
+                                .cornerRadius(16)
                     })
                 }
             }
         }
         
-        .alert(scoretitle, isPresented: $showScore) {
+        .alert(scoreTitle, isPresented: $showScore) {
             Button("Continue", action: askQuestion)
         }message: {
-            Text("your score is ??")
+            Text("your score is \(score)")
         }
     }
     
     func flagTapped(_ number: Int) {
         if number == correctAnswer {
-            scoretitle = "Correct"
+            scoreTitle = "Correct"
+            score += 1
         } else {
-            scoretitle = "Wrong"
+            scoreTitle = "Wrong"
+            score -= 1
         }
         
         showScore = true
