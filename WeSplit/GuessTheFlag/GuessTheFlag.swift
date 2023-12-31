@@ -15,11 +15,22 @@ struct GuessTheFlag: View {
     @State private var scoreTitle = ""
     @State private var score = 0
     
+    struct FlugModifier: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+            .cornerRadius(12)
+            .padding(4)
+            .background(.white)
+            .cornerRadius(16)
+        }
+    }
+    
+   
     
     var body: some View {
         ZStack {
             
-            LinearGradient(colors: [.blue, .black], startPoint: .topLeading, endPoint: .bottomTrailing)
+            LinearGradient(colors: [.blue, .black, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea()
             
             VStack(spacing: 30) {
@@ -43,10 +54,7 @@ struct GuessTheFlag: View {
                             flagTapped(number)
                         },label: {
                         Image(countries[number])
-                                .cornerRadius(12)
-                                .padding(4)
-                                .background(.white)
-                                .cornerRadius(16)
+                                .modifier(FlugModifier())
                     })
                 }
             }
@@ -64,7 +72,7 @@ struct GuessTheFlag: View {
             scoreTitle = "Correct"
             score += 1
         } else {
-            scoreTitle = "Wrong"
+            scoreTitle = "Wrong! the correct answer is: \(countries[number].uppercased())"
             score -= 1
         }
         
