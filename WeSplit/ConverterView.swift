@@ -10,7 +10,6 @@ import SwiftUI
 struct ConverterView: View {
     
     @State var celsiusInput: Double = 0.0
-    @State var specifierDigit: String =  "%.0f"
     
     var body: some View {
         let multiplyByNine = celsiusInput*9.0
@@ -28,7 +27,7 @@ struct ConverterView: View {
                     .keyboardType(.decimalPad)
             }
                 Section("resul in celsius") {
-                    Text("\(celsiusInput, specifier: specifierDigit) °C")
+                    Text("\(celsiusInput.formatted()) °C")
                         .fontWeight(.black)
                         .foregroundStyle(Color.pink)
                         .font(.system(size: 72))
@@ -36,14 +35,14 @@ struct ConverterView: View {
                 
                 
                 Section("resul in fahrenheit") {
-                    Text("\(fahrenheitResult, specifier: specifierDigit) °F")
+                    Text("\(fahrenheitResult.formatted()) °F")
                         .fontWeight(.black)
                         .foregroundStyle(Color.orange)
                         .font(.system(size: 72))
                 }
             
             Section("resul in kelvin") {
-                Text("\(kelvinResult, specifier: specifierDigit) °K")
+                Text("\(kelvinResult.formatted()) °K")
                     .fontWeight(.black)
                     .foregroundStyle(Color.blue)
                     .font(.system(size: 72))
