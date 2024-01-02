@@ -9,6 +9,7 @@ import SwiftUI
 import Foundation
 import WebKit
 
+// ----MODEL----
 struct NewsResponse: Codable {
     let status: String
     let totalResults: Int
@@ -30,9 +31,7 @@ struct Source: Codable {
     let id: String?
     let name: String
 }
-
-import SwiftUI
-
+//-----VIEW-MODEL
 class NewsViewModel: ObservableObject {
     @Published var articles: [Article] = []
     
@@ -50,7 +49,7 @@ class NewsViewModel: ObservableObject {
         }
     }
 }
-
+// ----VIEW----
 struct NewsView: View {
     
     @StateObject private var viewModel = NewsViewModel()
@@ -86,7 +85,8 @@ struct NewsView: View {
                     
                     Text(article.author ?? "Unknown Author")
                         .font(.footnote)
-                        .fontWeight(.black)
+                        .bold()
+                        .foregroundStyle(.gray)
                 }
             }
             .listStyle(.plain)
@@ -103,7 +103,7 @@ struct NewsView: View {
         }
     }
 }
-
+// ---WEB-VIEW--
 struct NewsArticleWebView: View {
     var newsUrl: String
     @Environment(\.presentationMode) var mode
